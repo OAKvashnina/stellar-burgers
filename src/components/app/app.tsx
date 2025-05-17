@@ -15,7 +15,13 @@ import styles from './app.module.css';
 import { getIngredients } from '../../services/slices/ingredientSlice/ingredientSlice';
 import { getUser } from '../../services/slices/userSlice/userSlice';
 import { AppHeader, Modal, OrderInfo, IngredientDetails } from '@components';
-import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import {
+  Routes,
+  Route,
+  useLocation,
+  useNavigate,
+  useMatch
+} from 'react-router-dom';
 import { useDispatch } from '../../services/store';
 import { ProtectedRoute } from '../../protectedRoute/protectedRoute';
 
@@ -30,6 +36,10 @@ const App = () => {
     dispatch(getUser());
   }, [dispatch]);
 
+  const profilNum = useMatch('/profile/orders/:number')?.params.number;
+  const feedNum = useMatch('/feed/:number')?.params.number;
+  const num = profilNum || feedNum;
+  const orderNum = `#${num && num.padStart(6, '0')}`;
   const background = location.state?.background;
 
   return (
@@ -135,7 +145,7 @@ const App = () => {
             path='/feed/:number'
             element={
               <Modal
-                title='Информация о заказе'
+                title={orderNum}
                 onClose={modalClose}
                 children={<OrderInfo />}
               />
@@ -155,7 +165,7 @@ const App = () => {
             path='/profile/orders/:number'
             element={
               <Modal
-                title='Информация о заказе'
+                title={orderNum}
                 onClose={modalClose}
                 children={<OrderInfo />}
               />
