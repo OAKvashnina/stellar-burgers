@@ -123,14 +123,14 @@ const App = () => {
           }
         />
         <Route
-          path='/orders/:number'
+          path='/profile/orders/:number'
           element={
-            <ProtectedRoute onlyUnAuth>
+            <ProtectedRoute>
               <div className={styles.detailPageWrap}>
                 <p
                   className={`text text_type_digits-default ${styles.detailHeader}`}
                 >
-                  Информация о заказе
+                  {orderNum}
                 </p>
                 <OrderInfo />
               </div>
@@ -164,11 +164,13 @@ const App = () => {
           <Route
             path='/profile/orders/:number'
             element={
-              <Modal
-                title={orderNum}
-                onClose={modalClose}
-                children={<OrderInfo />}
-              />
+              <ProtectedRoute>
+                <Modal
+                  title={orderNum}
+                  onClose={modalClose}
+                  children={<OrderInfo />}
+                />
+              </ProtectedRoute>
             }
           />
         </Routes>
