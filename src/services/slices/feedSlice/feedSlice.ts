@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
 import { getFeedsApi } from '@api';
 
-type TFeedsState = {
+export type TFeedsState = {
   orders: TOrder[];
   total: number;
   totalToday: number;
@@ -10,7 +10,7 @@ type TFeedsState = {
   error?: string | null;
 };
 
-const initialState: TFeedsState = {
+export const initialState: TFeedsState = {
   orders: [],
   total: 0,
   totalToday: 0,
